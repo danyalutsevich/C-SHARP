@@ -6,10 +6,15 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
+
+//import com.github.ua_parser.Parser;
+//import com.github.ua_parser.UserAgent;
+//import com.github.ua_parser.UserAgentParser;
+
 
 @Singleton
-public class CharsetFilter implements Filter {
+public class UserAgentFilter implements Filter {
+
     private FilterConfig filterConfig;
 
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -19,11 +24,21 @@ public class CharsetFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) servletRequest;
         HttpServletResponse res = (HttpServletResponse) servletResponse;
-        String charset = StandardCharsets.UTF_8.name();
-        req.setCharacterEncoding(charset);
-        res.setCharacterEncoding(charset);
 
-        req.setAttribute("charset", charset);
+        String userAgent = req.getHeader("User-Agent");
+        System.out.println(userAgent);
+
+        req.setAttribute("user-agent", userAgent);
+
+
+//        Parser parser = new Parser();
+//        UserAgent userAgent = parser.parse(user_agent_string);
+//
+//        // Extract browser, OS, and device information
+//        String browserName = userAgent.family;
+//        String osName = userAgent.os.family;
+//        String deviceType = userAgent.device.family;
+
 
         filterChain.doFilter(servletRequest, servletResponse);
 

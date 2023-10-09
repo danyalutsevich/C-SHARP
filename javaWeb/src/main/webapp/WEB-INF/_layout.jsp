@@ -2,6 +2,7 @@
 <%
     String pageBody = (String) request.getAttribute("page-body");
     String context = request.getContextPath();
+    String userAgent = (String) request.getAttribute("user-agent");
 %>
 <html>
 <head>
@@ -16,6 +17,9 @@
     <a href="<%=context%>/ioc">Ioc</a>
     <a href="<%=context%>/jsp">About Jsp</a>
 </nav>
+<p>Your user agent is: <%=userAgent%>
+</p>
+
 
 <jsp:include page="<%=pageBody%>"/>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
