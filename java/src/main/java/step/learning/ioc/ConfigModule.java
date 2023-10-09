@@ -5,6 +5,8 @@ import com.google.inject.name.Names;
 import com.google.inject.Provides;
 import step.learning.ioc.services.hash.Md5HashService;
 import step.learning.ioc.services.hash.HashService;
+import step.learning.ioc.services.hash.Md5OldHashService;
+import step.learning.ioc.services.hash.Sha1HashService;
 import step.learning.ioc.services.random.RandomService;
 import step.learning.ioc.services.random.RandomServiceV1;
 
@@ -15,9 +17,12 @@ public class ConfigModule extends AbstractModule {
 
         bind(HashService.class).to(Md5HashService.class);
 
-        bind(HashService.class).annotatedWith(Names.named("Digest-Hash")).to(Md5HashService.class);
+        bind(HashService.class).annotatedWith(Names.named("Digest-Hash")).to(Md5OldHashService.class);
         bind(HashService.class)
                 .annotatedWith(Names.named("Signature-Hash"))
+                .to(Sha1HashService.class);
+        bind(HashService.class)
+                .annotatedWith(Names.named("DigestOptimized-Hash"))
                 .to(Md5HashService.class);
 
     }

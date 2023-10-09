@@ -19,6 +19,8 @@ public class NamedIoc {
             HashService digestService,
             @Named("Signature-Hash")
             HashService signatureService,
+            @Named("DigestOptimized-Hash")
+            HashService digestOptimizedService,
             RandomService randomService
     ) {
         this.digestService = digestService;

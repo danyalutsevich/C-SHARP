@@ -15,15 +15,15 @@ import step.learning.ioc.NamedIoc;
  */
 public class App {
     public static void main(String[] args) {
-        ShootingRange shootingRange = new ShootingRange();
-        shootingRange.run();
+//        ShootingRange shootingRange = new ShootingRange();
+//        shootingRange.run();
 
-//        Injector injector = Guice.createInjector(new ConfigModule());
-//        Ioc ioc = injector.getInstance(Ioc.class);
-////        ioc.run();
-//
-//        NamedIoc namedIoc = injector.getInstance(NamedIoc.class);
-//        namedIoc.run();
+        Injector injector = Guice.createInjector(new ConfigModule());
+        Ioc ioc = injector.getInstance(Ioc.class);
+//        ioc.run();
+
+        NamedIoc namedIoc = injector.getInstance(NamedIoc.class);
+        namedIoc.run();
 
     }
 }
