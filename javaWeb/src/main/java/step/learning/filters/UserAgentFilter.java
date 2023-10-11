@@ -7,11 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//import com.github.ua_parser.Parser;
-//import com.github.ua_parser.UserAgent;
-//import com.github.ua_parser.UserAgentParser;
-
-
 @Singleton
 public class UserAgentFilter implements Filter {
 
