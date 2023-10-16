@@ -22,6 +22,8 @@
     <a href="<%=context%>/filters">Filters</a>
     <a href="<%=context%>/ioc">Ioc</a>
     <a href="<%=context%>/jsp">About Jsp</a>
+    <a href="<%=context%>/signup">SingUp</a>
+    <a href="<%=context%>/db">DB</a>
 </nav>
 <p>Your user agent is: <%=userAgent%>
 </p>
