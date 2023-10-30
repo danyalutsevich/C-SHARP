@@ -3,6 +3,8 @@ package step.learning.ioc;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.name.Names;
+import step.learning.services.db.DBProvider;
+import step.learning.services.db.PlanetDBProvider;
 import step.learning.services.hash.*;
 import step.learning.services.random.RandomService;
 import step.learning.services.random.RandomServiceV1;
@@ -16,6 +18,8 @@ public class ServicesModule extends AbstractModule {
         bind(HashService.class)
                 .annotatedWith(Names.named("Signature-hash"))
                 .to(Sha1HashService.class);
+
+        bind(DBProvider.class).to(PlanetDBProvider.class);
     }
 
     private RandomService randomService;
