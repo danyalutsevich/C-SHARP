@@ -18,10 +18,10 @@
 
 </div>
 
-<form action="signup" method="post">
+<form action="signup" method="post" enctype="multipart/form-data">
     <input placeholder="email" name="email">
     <input placeholder="password" name="password">
-    <input type="date" placeholder="birthDate" name="date">
-    <input type="submit">
+    <input type="file" name="avatar">
+    <input type="submit" value="SignUp">
 </form>
 
