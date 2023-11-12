@@ -3,6 +3,7 @@
 
 <%
     ArrayList<String> regData = (ArrayList<String>) request.getAttribute("reg-data");
+    String message = (String) request.getAttribute("reg-message");
 %>
 
 <h2>Sign Up</h2>
@@ -10,12 +11,13 @@
 <div class="messages">
 
     <%if (regData != null) {%>
-    <%for (String message : regData) {%>
-    <p><%=message%>
+    <%for (String data : regData) {%>
+    <p><%=data%>
     </p>
     <%}%>
     <%}%>
-
+    <p><%=message%>
+    </p>
 </div>
 
 <form action="signup" method="post" enctype="multipart/form-data">

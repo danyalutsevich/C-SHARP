@@ -8,10 +8,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 import javax.servlet.http.Part;
 import javax.validation.ConstraintViolation;
@@ -20,13 +17,19 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import javax.validation.constraints.*;
 
+import step.learning.services.formParse.FormParseResult;
 import step.learning.services.parse.*;
 
 public class SignUpModelForm {
 
-    public SignUpModelForm(HttpServletRequest req) throws ServletException, IOException {
-        this.email = (String) req.getParameter("email");
-        this.password = (String) req.getParameter("password");
+    private final String[] allowedFileExtensions = {".jpg", ".jpeg", ".png", ".ico", "gif"};
+
+    public SignUpModelForm(FormParseResult res) throws ServletException, IOException {
+
+        Map<String, String> fields = res.getFields();
+        this.email = fields.get("email");
+        this.password = fields.get("password");
+        this.saveAvatar(res);
     }
 
     public ArrayList<String> validate() {
@@ -45,28 +48,28 @@ public class SignUpModelForm {
         return messages.toString().isEmpty() ? new ArrayList<String>() : messages;
     }
 
-    public void saveFile(HttpServletRequest req) throws ServletException, IOException {
+    public void saveAvatar(FormParseResult res) throws ServletException, IOException {
 
         String uploadPath = "C:\\Users\\luche\\Desktop\\static\\";
         ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
+        Map<String, FileItem> files = res.getFiles();
+
+        FileItem avatar = files.get("avatar");
+
         try {
-            List<FileItem> fileItems = sf.parseRequest(req);
-            for (FileItem item : fileItems) {
-                if (item.getFieldName().equals("avatar")) {
-                    String fileExtension = FileExtension.getFileExtension(item.getContentType());
-                    if (fileExtension == null) {
-                        throw new MissingFormatArgumentException("Invalid file format");
-                    }
-                    String avatarFileName = uploadPath + UUID.randomUUID() + fileExtension;
-                    this.avatar = avatarFileName;
-                    item.write(new File(avatarFileName));
-                }
+            String fileExtension = FileExtension.getFileExtension(avatar.getContentType());
+            if (fileExtension == null) {
+                throw new MissingFormatArgumentException("Invalid file format");
+            } else if (!Arrays.asList(this.allowedFileExtensions).contains(fileExtension)) {
+                throw new InvalidObjectException(fileExtension + " extension is not allowed");
             }
-        } catch (FileUploadException e) {
-            throw new RuntimeException(e);
+            String avatarFileName = uploadPath + UUID.randomUUID() + fileExtension;
+            this.avatar = avatarFileName;
+            avatar.write(new File(avatarFileName));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+
     }
 
 

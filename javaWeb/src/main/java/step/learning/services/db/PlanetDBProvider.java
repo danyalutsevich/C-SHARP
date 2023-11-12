@@ -36,6 +36,11 @@ public class PlanetDBProvider implements DBProvider {
                 JsonObject planetConfig = dbConfig.get("DataProviders")
                         .getAsJsonObject().get("local").getAsJsonObject();
                 DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+                System.out.println(planetConfig.get("url").getAsString());
+                System.out.println(planetConfig.get("user").getAsString());
+                System.out.println(planetConfig.get("password").getAsString());
+
+
                 this.connection = DriverManager.getConnection(
                         planetConfig.get("url").getAsString(),
                         planetConfig.get("user").getAsString(),
