@@ -19,6 +19,7 @@ public class RouterModule extends ServletModule {
         serve("/signup").with(SignUpServlet.class);
         serve("/db").with(DbServlet.class);
         serve("/auth/signin").with(AuthServlet.class);
+        serve("/callme").with(CallMeServlet.class);
 
         serveRegex("/\\w\\w/signup").with(SignUpServlet.class);
     }
