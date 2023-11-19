@@ -32,5 +32,14 @@ public class CallMeDao {
         }
     }
 
+    public void install() {
+        String sql = "CREATE TABLE callMe ( id int NOT NULL AUTO_INCREMENT,NAME VARCHAR(200), phoneNumber VARCHAR(200),email VARCHAR(200),PRIMARY KEY (id\t));";
+        try (PreparedStatement prep = dbProvider.getConnection().prepareStatement(sql)) {
+            prep.execute();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
 
 }
